@@ -11,4 +11,4 @@ jobs:
         - bridgecrew/scan:
             directory: '.'
             output: "junitxml"
-            api-key-variable: "b4667191-6e30-5489-bbb8-030c3f7772eb"
+            api-key-variable: BC_API_KEY
