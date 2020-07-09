@@ -155,3 +155,4 @@ spec:
         - name: jenkins-home
           persistentVolumeClaim:
             claimName: RELEASE-NAME-jenkins
+ 
