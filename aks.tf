@@ -3,6 +3,7 @@ resource azurerm_kubernetes_cluster "k8s_cluster" {
   location            = var.location
   name                = "terragoat-aks-${var.environment}"
   resource_group_name = azurerm_resource_group.example.name
+  network_policy = azure
   identity {
     type = "SystemAssigned"
   }
@@ -13,13 +14,13 @@ resource azurerm_kubernetes_cluster "k8s_cluster" {
   }
   addon_profile {
     oms_agent {
-      enabled = false
+      enabled = true
     }
     kube_dashboard {
-      enabled = true
+      enabled = false
     }
   }
   role_based_access_control {
-    enabled = false
+    enabled = true
   }
 }
