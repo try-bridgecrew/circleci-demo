@@ -1,0 +1,48 @@
+service: usersCrud
+provider: aws
+
+functions:
+  DBWriterFunction:
+    name: myFunc
+    tags:
+      RESOURCE: lambda
+      PUBLIC: false
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - "lambda:InvokeFunction"
+        Resource:
+          - "arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:invokedLambda"
+    handler: Handler.handle
+    timeout: 600
+    memorySize: 320
+billingFunction:
+    environment:
+      FUNC_NAME: "billingFunction"
+      AWS_ACCESS_KEY: "AKIAIOSFODNN7EXAMPLE"
+      AWS_SECRET_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    name: myFunc
+    tags:
+      RESOURCE: lambda
+      PUBLIC: false
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - "lambda:InvokeFunction"
+        Resource:
+          - "arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:invokedLambda"
+    handler: Handler.handle
+    timeout: 600
+    memorySize: 320
+resources: # CloudFormation template syntax
+  Resources:
+    S3BucketPublicRead:
+      Type: AWS::S3::Bucket
+      Properties:
+        AccessControl: PublicRead
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+
+  
